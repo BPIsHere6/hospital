@@ -1,0 +1,25 @@
+package cn.pan;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+/**
+ * SpringBoot启动类
+ * @author 潘越鑫
+ */
+@SpringBootApplication
+@EnableJpaAuditing
+@EnableCaching
+@EnableAsync
+@EnableScheduling
+public class PanApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PanApplication.class, args);
+        System.out.println("ok");
+    }
+}
