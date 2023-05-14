@@ -1,8 +1,8 @@
 {
   "name": "template",
   "version": "1.0.0",
-  "description": "基于Vue和SpringBoot的通用管理系统",
-  "author": "郑为中 <916077357@qq.com>",
+  "description": "",
+  "author": "潘越鑫 <863752311@qq.com>",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
