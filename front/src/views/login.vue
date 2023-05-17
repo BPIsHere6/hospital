@@ -102,7 +102,7 @@ export default {
             saveLogin: true,
             loading: false,
             form: {
-                username: "admin",
+                username: "someone",
                 password: "123456",
                 mobile: "",
                 code: ""

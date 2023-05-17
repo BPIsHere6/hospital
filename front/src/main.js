@@ -13,6 +13,9 @@ import hasPermission from '@/libs/hasPermission'
 import hasRole from '@/libs/hasRole'
 import VueLazyload from 'vue-lazyload'
 import VueClipboard from 'vue-clipboard2'
+import * as echarts from 'echarts'
+import $ from 'jquery';
+
 Vue.config.silent = true
 Vue.config.productionTip = false
 Vue.use(VueLazyload, {
@@ -34,6 +37,10 @@ Vue.prototype.setStore = setStore;
 Vue.prototype.getStore = getStore;
 Vue.prototype.removeStore = removeStore;
 Vue.prototype.format = format;
+Vue.prototype.$echarts = echarts;
+
+window.jQuery = $;
+window.$ = $;
 
 new Vue({
     el: '#app',
@@ -43,7 +50,7 @@ new Vue({
     data: {
         currentPageName: ''
     },
-    mounted() {
+    mounted () {
         util.initRouter(this);
         this.currentPageName = this.$route.name;
         this.$store.commit('setOpenedList');
