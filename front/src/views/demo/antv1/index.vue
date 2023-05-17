@@ -19,67 +19,7 @@ export default {
   data () {
     return {
       stackedBarPlot: {},
-      userData: [
-        {
-          title: '零食类',
-          type: '进货量',
-          value: 6,
-        },
-        {
-          title: '零食类',
-          type: '交易量',
-          value: 5,
-        },
-        {
-          title: '零食类',
-          type: '询问数',
-          value: 2,
-        },
-        {
-          title: '零食类',
-          type: '售后数',
-          value: 10,
-        },
-        {
-          title: '冷冻类',
-          type: '进货量',
-          value: 3,
-        },
-        {
-          title: '冷冻类',
-          type: '交易量',
-          value: 3,
-        },
-        {
-          title: '冷冻类',
-          type: '询问数',
-          value: 1,
-        },
-        {
-          title: '冷冻类',
-          type: '售后数',
-          value: 5,
-        },
-        {
-          title: '烟酒类',
-          type: '进货量',
-          value: 10,
-        },
-        {
-          title: '烟酒类',
-          type: '交易量',
-          value: 11,
-        },
-        {
-          title: '烟酒类',
-          type: '询问数',
-          value: 7,
-        },
-        {
-          title: '烟酒类',
-          type: '售后数',
-          value: 15,
-        }]
+      userData: []
     }
   },
   methods: {
@@ -88,14 +28,13 @@ export default {
     },
     initAntvFx () {
 
-
       var chartDom = document.getElementById('main');
       var myChart = echarts.init(chartDom);
       var option;
 
       var _this = this;
       getChartList().then(res => {
-        console.log(res.result);
+        // console.log(res.result);
         run(res.result)
       });
 
@@ -103,12 +42,12 @@ export default {
         const countries = [
           '芬兰',
           '法国',
+          '英国',
           '德国',
           '冰岛',
           '美国',
-          '日本',
           '中国',
-          '古巴'
+          '波兰'
         ];
         const datasetWithFilters = [];
         const seriesList = [];
@@ -121,7 +60,7 @@ export default {
               type: 'filter',
               config: {
                 and: [
-                  { dimension: 'Year', gte: 1957 },
+                  { dimension: 'Year', gte: 1972 },
                   { dimension: 'Country', '=': country }
                 ]
               }
