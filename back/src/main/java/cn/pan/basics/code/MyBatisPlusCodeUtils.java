@@ -26,13 +26,13 @@ public class MyBatisPlusCodeUtils {
         ClasspathResourceLoader crl = new ClasspathResourceLoader("/template/");
         GroupTemplate gt = new GroupTemplate(crl, Configuration.defaultConfiguration());
         // 一键产生增删改查代码
-        createNewCode(gt);
+//        createNewCode(gt);
         // 一键移除生成的代码【需要时取消注释】
-        // removeNewCode(className);
+         removeNewCode(className);
     }
 
     @ApiModelProperty(value = "类名")
-    private static final String className = "DynamicTableData";
+    private static final String className = "Books";
 
     @ApiModelProperty(value = "类备注")
     private static final String description = "动态表格值";
