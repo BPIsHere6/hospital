@@ -5,7 +5,7 @@
             <div class="loginLeft">
                 <img src="../assets/login/logo.png" alt="" srcset="">
                 <span class="line"></span>
-                <span class="title">基于Vue和SpringBoot的通用管理系统</span>
+                <span class="title"></span>
             </div>
         </div>
         <div class="loginMiddle">
@@ -102,7 +102,7 @@ export default {
             saveLogin: true,
             loading: false,
             form: {
-                username: "admin",
+                username: "someone",
                 password: "123456",
                 mobile: "",
                 code: ""

@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div
-      id="main"
-      style="width: 600px;height:400px;"
-    ></div>
+    <Alert
+      type="success"
+      show-icon
+      banner
+    >温馨提示：该图数据都是随机数伪造，不要过分认真哦~</Alert>
+    <div id="container"></div>
   </div>
 </template>
 
@@ -19,67 +21,7 @@ export default {
   data () {
     return {
       stackedBarPlot: {},
-      userData: [
-        {
-          title: '零食类',
-          type: '进货量',
-          value: 6,
-        },
-        {
-          title: '零食类',
-          type: '交易量',
-          value: 5,
-        },
-        {
-          title: '零食类',
-          type: '询问数',
-          value: 2,
-        },
-        {
-          title: '零食类',
-          type: '售后数',
-          value: 10,
-        },
-        {
-          title: '冷冻类',
-          type: '进货量',
-          value: 3,
-        },
-        {
-          title: '冷冻类',
-          type: '交易量',
-          value: 3,
-        },
-        {
-          title: '冷冻类',
-          type: '询问数',
-          value: 1,
-        },
-        {
-          title: '冷冻类',
-          type: '售后数',
-          value: 5,
-        },
-        {
-          title: '烟酒类',
-          type: '进货量',
-          value: 10,
-        },
-        {
-          title: '烟酒类',
-          type: '交易量',
-          value: 11,
-        },
-        {
-          title: '烟酒类',
-          type: '询问数',
-          value: 7,
-        },
-        {
-          title: '烟酒类',
-          type: '售后数',
-          value: 15,
-        }]
+      userData: []
     }
   },
   methods: {
@@ -88,14 +30,13 @@ export default {
     },
     initAntvFx () {
 
-
-      var chartDom = document.getElementById('main');
+      var chartDom = document.getElementById('container');
       var myChart = echarts.init(chartDom);
       var option;
 
       var _this = this;
       getChartList().then(res => {
-        console.log(res.result);
+        // console.log(res.result);
         run(res.result)
       });
 
@@ -103,12 +44,12 @@ export default {
         const countries = [
           '芬兰',
           '法国',
+          '英国',
           '德国',
           '冰岛',
           '美国',
-          '日本',
           '中国',
-          '古巴'
+          '波兰'
         ];
         const datasetWithFilters = [];
         const seriesList = [];
@@ -121,7 +62,7 @@ export default {
               type: 'filter',
               config: {
                 and: [
-                  { dimension: 'Year', gte: 1957 },
+                  { dimension: 'Year', gte: 1972 },
                   { dimension: 'Country', '=': country }
                 ]
               }
@@ -146,10 +87,10 @@ export default {
             },
             encode: {
               x: 'Year',
-              y: 'Income',
-              label: ['Country', 'Income'],
+              y: 'Number of patients',
+              label: ['Country', 'Number of patients'],
               itemName: 'Year',
-              tooltip: ['Income']
+              tooltip: ['Number of patients']
             }
           });
         });
@@ -163,7 +104,7 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Income of Germany and France since 1950'
+            text: '自1972年来各国癌症患者数量'
           },
           tooltip: {
             order: 'valueDesc',
@@ -174,7 +115,7 @@ export default {
             nameLocation: 'middle'
           },
           yAxis: {
-            name: 'Income'
+            name: '患者数量'
           },
           grid: {
             right: 140

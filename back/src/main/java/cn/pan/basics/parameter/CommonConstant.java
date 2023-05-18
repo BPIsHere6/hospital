@@ -42,5 +42,5 @@ public interface CommonConstant {
     String[] STOP_WORDS = {"anonymoususer"};
 
     @ApiModelProperty(value = "头像URL")
-    String USER_DEFAULT_AVATAR = "https://wx.qlogo.cn/mmhead/PiajxSqBRaEKjc639z2lRF4DqweNw2aDRLbAL7yLlSgrdZeKBCwLHDQ/0";
+    String USER_DEFAULT_AVATAR = "https://img.wxcha.com/m00/12/db/594dd9fb43029a58df9acc0e4591d94b.jpg";
 }
