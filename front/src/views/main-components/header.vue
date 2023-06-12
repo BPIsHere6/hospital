@@ -2,7 +2,7 @@
 <div>
     <Row class="header">
         <img src="../../assets/logo.png" width="220px">
-        <div class="description">医院门诊预约管理系统</div>
+        <div class="description">医院门诊预约平台</div>
     </Row>
 </div>
 </template>

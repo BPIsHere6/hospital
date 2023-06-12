@@ -4,7 +4,7 @@ export const loginRouter = {
     path: '/login',
     name: 'login',
     meta: {
-        title: '登录 - 医院门诊预约管理系统'
+        title: '登录 - 医院门诊预约平台'
     },
     component: () => import('@/views/login.vue')
 };
@@ -13,7 +13,7 @@ export const registRouter = {
     path: '/regist',
     name: 'regist',
     meta: {
-        title: '注册 - 医院门诊预约管理系统'
+        title: '注册 - 医院门诊预约平台'
     },
     component: () => import('@/views/regist.vue')
 };

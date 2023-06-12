@@ -1,4 +1,4 @@
-# 医院门诊预约管理系统
+# 医院门诊预约挂号平台
 
 
 
@@ -6,17 +6,17 @@
 
 ​		曾经去医院看病都需要排很久的队挂号，但随着互联网的发展，“预约挂号”这个名词开始出现。患者可以通过医院门诊的预约挂号系统进行“在家排队”，极大的提升了患者挂号体验。
 
-​		《医院门诊预约管理系统》是基于Vue和SpringBoot开发的一套软件系统，采用了View UI作为组件库；利用Maven构建项目，采用SpringBoot整合MybatisPlus，采用MySQL数据库存储数据，采用Redis用于缓存加密用户临时数据。
+​		《医院门诊预约挂号平台》是基于Vue和SpringBoot开发的一套软件系统，采用了View UI作为组件库；利用Maven构建项目，采用SpringBoot整合MybatisPlus，采用MySQL数据库存储数据，采用Redis用于缓存加密用户临时数据。
 
 ![image-20230612140420295](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612140420295.png)
 
 ​		本系统采用了基于角色的访问控制，主要分为超级管理员、普通管理员、普通用户三类角色。角色与菜单关联，由超级管理员为普通管理员和普通用户分发菜单权限。普通管理员可以理解为医生操作界面，可以控制科室管理、医生放号等功能。普通用户为患者端，可以进行预约挂号、用户留言等功能。
 
-《医院门诊预约管理系统》登录界面：
+《医院门诊预约挂号平台》登录界面：
 
-![image-20230612123525045](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612123525045.png)
+![image-20230612225659449](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612225659449.png)
 
-《医院门诊预约管理系统》主页界面：
+《医院门诊预约挂号平台》主页界面：
 
 ![image-20230612123744675](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612123744675.png)
 
@@ -69,7 +69,7 @@
 
 用户登陆功能，系统首先会效验验证码，验证码有效期为 60 秒，如果超过有效期，系统会提示需要重新登陆，如果遇到看不清楚的验证码，可以点击验证码图片可以完成刷新
 
-![image-20230612123525045](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612123525045.png)
+![image-20230612225659449](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612225659449.png)
 
 当用户输入的账号密码、图形验证码都正确后（以超级管理员权限验证进入），系统允许登陆，进入到系统首页，如下图所示：
 
@@ -230,9 +230,3 @@
 ![image-20230612151322329](https://typroa-picpool-1311872129.cos.ap-chongqing.myqcloud.com/img/image-20230612151322329.png)
 
 
-
-## TODO
-
-- 解决“预约挂号”高并发情况下抢号问题
-- 增添邮件登录模块
-- 页面国家化

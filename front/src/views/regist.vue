@@ -5,7 +5,7 @@
             <div class="loginLeft">
                 <img src="../assets/login/logo.png" alt="" srcset="">
                 <span class="line"></span>
-                <span class="title">医院门诊预约管理系统</span>
+                <span class="title">医院门诊预约平台</span>
             </div>
         </div>
         <div class="loginMiddle">
