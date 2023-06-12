@@ -4,8 +4,8 @@ import cn.pan.basics.baseClass.PanBaseDao;
 import cn.pan.data.entity.Log;
 
 /**
- * 日志数据处理层
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 public interface LogDao extends PanBaseDao<Log,String> {
 

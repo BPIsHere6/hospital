@@ -8,9 +8,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 基类服务层
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "模板服务层")
 @FunctionalInterface
 public interface PanBaseService<E, ID extends Serializable> {
 

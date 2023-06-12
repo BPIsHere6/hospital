@@ -257,7 +257,7 @@ export default {
         align-items: center;
         background-color: rgba(255, 255, 255, 0.4);
         border-radius: 20px;
-        color: #fff;
+        color: #d9d8d8;
         font-size: 20px;
     }
 }
@@ -318,7 +318,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(244, 242, 242, 0.500);
     border-radius: 10px;
     padding: 20px;
     margin: 0 auto;
@@ -341,7 +341,7 @@ export default {
         width: 1px !important;
         height: 100%;
         max-height: 35px;
-        background-color: #fff;
+        background-color: #d9d8d8;
     }
 
     .number {

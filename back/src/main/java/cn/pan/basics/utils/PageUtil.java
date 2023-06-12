@@ -6,6 +6,7 @@ import cn.pan.data.utils.PanNullUtils;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 封装的分页插件
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "分页工具类")
 public class PageUtil {
 
     private final static String[] NO_CAN_USE_WORDS = {"drop","select","master","insert","truncate","declare","delete","sleep","update","alter"};

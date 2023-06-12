@@ -1,9 +1,10 @@
 package cn.pan.basics.security.utils;
 
 import cn.pan.data.utils.PanNullUtils;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,29 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 企微消息发送工具类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "企微消息发送消息工具类")
 public class PanWxNoticeUtils {
 
     private static final String BASE_URL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=";
 
     private static final String USER_ID_ERR = "81013";
 
-    @ApiModelProperty(value = "朗世企业ID")
+    @ApiModelProperty(value = "企业ID")
     public static final String YH_CORPID = "wwf94bb44e76e308f8";
 
-    /**
-     * 发送文本消息
-     * @param userId 微信ID
-     * @param content 内容
-     */
+    @ApiOperation(value = "发送文本消息")
     public static String sendInputMessage(int company,String userId,String content,String token){
         if(content == null || PanNullUtils.isNull(content)) {
             return "NULL";
         }
 
-        String json = JSON.toJSONString(new panWeChatNoticeInput(userId,"text",YH_CORPID,new panWeChatNoticeInputItem(content),0,1));
+        String json = JSON.toJSONString(new PanWeChatNoticeInput(userId,"text",YH_CORPID,new PanWeChatNoticeInputItem(content),0,1));
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         System.out.println(s);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -46,12 +44,7 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 企微上传文件
-     * @param path 文件路径
-     * @param fileType 文件类型 image file
-     * @return
-     */
+    @ApiOperation(value = "企微上传文件")
     public static String uploadWeChatFile(String path, String fileType,String token) {
         try {
             JSONObject jsonObject = WeChatUploadMeidaUtils.UploadMeida(fileType,path,token);
@@ -68,14 +61,9 @@ public class PanWxNoticeUtils {
         }
     }
 
-    /**
-     * 发送图片消息
-     * @param userId 用户微信ID
-     * @param mediaId 文件微信ID
-     * @return
-     */
+    @ApiOperation(value = "发送图片消息")
     public static String sendImageMessage(int company,String userId,String mediaId,String token) {
-        panWeiChatNoticeImage image = new panWeiChatNoticeImage(userId,"image",YH_CORPID,new panWeChatNoticeImageItem(mediaId),0,1);
+        PanWeiChatNoticeImage image = new PanWeiChatNoticeImage(userId,"image",YH_CORPID,new PanWeChatNoticeImageItem(mediaId),0,1);
         String json = JSON.toJSONString(image);
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -88,14 +76,9 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 发送视频消息
-     * @param userId 用户微信ID
-     * @param mediaId 文件微信ID
-     * @return
-     */
+    @ApiOperation(value = "发送视频消息")
     public static String sendVideoMessage(int company,String userId,String mediaId,String title,String description,String token) {
-        panWeiChatNoticeVideo video = new panWeiChatNoticeVideo(userId,"video",YH_CORPID,new panWeChatNoticeVideoItem(mediaId,title,description),0,1);
+        PanWeiChatNoticeVideo video = new PanWeiChatNoticeVideo(userId,"video",YH_CORPID,new PanWeChatNoticeVideoItem(mediaId,title,description),0,1);
         String json = JSON.toJSONString(video);
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -108,14 +91,9 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 发送文件消息
-     * @param userId 用户微信ID
-     * @param mediaId 文件微信ID
-     * @return
-     */
+    @ApiOperation(value = "发送文件消息")
     public static String sendFileMessage(int company,String userId,String mediaId,String token) {
-        panWeiChatNoticeFile file = new panWeiChatNoticeFile(userId,"file",YH_CORPID,new panWeChatNoticeFileItem(mediaId),0,1);
+        PanWeiChatNoticeFile file = new PanWeiChatNoticeFile(userId,"file",YH_CORPID,new PanWeChatNoticeFileItem(mediaId),0,1);
         String json = JSON.toJSONString(file);
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -128,13 +106,9 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 发送文本卡片消息
-     * @param userId 用户微信ID
-     * @return
-     */
+    @ApiOperation(value = "发送文本卡片消息")
     public static String sendTextCardMessage(int company,String userId,String title,String description,String url,String btntxt,String token) {
-        panWeiChatNoticeTextCard file = new panWeiChatNoticeTextCard(userId,"textcard",YH_CORPID,new panWeChatNoticeTextCardItem(title,description,url,btntxt),0,1);
+        PanWeiChatNoticeTextCard file = new PanWeiChatNoticeTextCard(userId,"textcard",YH_CORPID,new PanWeChatNoticeTextCardItem(title,description,url,btntxt),0,1);
         String json = JSON.toJSONString(file);
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -147,15 +121,11 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 发送图文消息
-     * @param userId 用户微信ID
-     * @return
-     */
+    @ApiOperation(value = "发送图文消息")
     public static String sendTuWenMessage(String userId,String title,String description,String url,String picUrl,String token) {
-        List<panWeChatNoticeTuWenItemValue> tuWenList = new ArrayList<>();
-        tuWenList.add(new panWeChatNoticeTuWenItemValue(title, description, url, picUrl));
-        panWeChatNoticeTuWen file = new panWeChatNoticeTuWen(userId,"news","1000002",new panWeChatNoticeTuWenItem(tuWenList),0,1);
+        List<PanWeChatNoticeTuWenItemValue> tuWenList = new ArrayList<>();
+        tuWenList.add(new PanWeChatNoticeTuWenItemValue(title, description, url, picUrl));
+        PanWeChatNoticeTuWen file = new PanWeChatNoticeTuWen(userId,"news","1000002",new PanWeChatNoticeTuWenItem(tuWenList),0,1);
         String json = JSON.toJSONString(file);
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -168,16 +138,12 @@ public class PanWxNoticeUtils {
         return "FAIL";
     }
 
-    /**
-     * 发送Markdown消息
-     * @param userId 微信ID
-     * @param content 内容
-     */
+    @ApiOperation(value = "发送Markdown消息")
     public static String sendMarkdownMessage(int company,String userId,String content,String token){
         if(content == null || PanNullUtils.isNull(content)) {
             return "NULL";
         }
-        String json = JSON.toJSONString(new panWeChatNoticeMarkdown(userId,"markdown",YH_CORPID,new panWeChatNoticeMarkdownItem(content),0,1));
+        String json = JSON.toJSONString(new PanWeChatNoticeMarkdown(userId,"markdown",YH_CORPID,new PanWeChatNoticeMarkdownItem(content),0,1));
         String s= WeiChatUtils.httpsRequest(BASE_URL + token,"POST",json);
         System.out.println(s);
         JSONObject ans1 = JSONObject.parseObject(s);
@@ -195,11 +161,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeMarkdown {
+    private static class PanWeChatNoticeMarkdown {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeMarkdownItem markdown;
+        private PanWeChatNoticeMarkdownItem markdown;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -209,7 +175,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeMarkdownItem {
+    private static class PanWeChatNoticeMarkdownItem {
         private String content;
     }
 
@@ -218,11 +184,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeTuWen {
+    private static class PanWeChatNoticeTuWen {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeTuWenItem news;
+        private PanWeChatNoticeTuWenItem news;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -232,8 +198,8 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeTuWenItem {
-        private List<panWeChatNoticeTuWenItemValue> articles;
+    private static class PanWeChatNoticeTuWenItem {
+        private List<PanWeChatNoticeTuWenItemValue> articles;
     }
 
     /**
@@ -241,7 +207,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeTuWenItemValue {
+    private static class PanWeChatNoticeTuWenItemValue {
         private String title;
         private String description;
         private String url;
@@ -253,11 +219,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeiChatNoticeTextCard {
+    private static class PanWeiChatNoticeTextCard {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeTextCardItem textcard;
+        private PanWeChatNoticeTextCardItem textcard;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -267,7 +233,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeTextCardItem {
+    private static class PanWeChatNoticeTextCardItem {
         private String title;
         private String description;
         private String url;
@@ -279,11 +245,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeiChatNoticeFile {
+    private static class PanWeiChatNoticeFile {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeFileItem file;
+        private PanWeChatNoticeFileItem file;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -293,7 +259,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeFileItem {
+    private static class PanWeChatNoticeFileItem {
         private String media_id;
     }
 
@@ -302,11 +268,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeiChatNoticeVideo {
+    private static class PanWeiChatNoticeVideo {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeVideoItem video;
+        private PanWeChatNoticeVideoItem video;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -316,7 +282,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeVideoItem {
+    private static class PanWeChatNoticeVideoItem {
         private String media_id;
         private String title;
         private String description;
@@ -327,11 +293,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeiChatNoticeImage {
+    private static class PanWeiChatNoticeImage {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeImageItem image;
+        private PanWeChatNoticeImageItem image;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -341,7 +307,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeImageItem {
+    private static class PanWeChatNoticeImageItem {
         private String media_id;
     }
 
@@ -350,11 +316,11 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeInput {
+    private static class PanWeChatNoticeInput {
         private String touser;
         private String msgtype;
         private String agentid;
-        private panWeChatNoticeInputItem text;
+        private PanWeChatNoticeInputItem text;
         private int safe;
         private int enable_duplicate_check;
     }
@@ -364,7 +330,7 @@ public class PanWxNoticeUtils {
      */
     @Data
     @AllArgsConstructor
-    private static class panWeChatNoticeInputItem {
+    private static class PanWeChatNoticeInputItem {
         private String content;
     }
 }

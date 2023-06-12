@@ -5,7 +5,7 @@
             <div class="loginLeft">
                 <img src="../assets/login/logo.png" alt="" srcset="">
                 <span class="line"></span>
-                <span class="title"></span>
+                <span class="title">医院门诊预约管理系统</span>
             </div>
         </div>
         <div class="loginMiddle">
@@ -129,7 +129,7 @@ export default {
                 }],
                 password: [{
                         required: true,
-                        message: "请输入登陆密码",
+                        message: "请输入登录密码",
                         trigger: "blur"
                     },
                     {

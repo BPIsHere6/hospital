@@ -25,9 +25,10 @@ import java.time.Duration;
 import java.util.Objects;
 
 /**
- * Redis异常处理
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "Redis异常处理")
 @Configuration
 @Slf4j
 public class RedisExceptionThrowsConfig extends CachingConfigurerSupport {

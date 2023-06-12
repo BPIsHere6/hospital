@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 系统日志
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
 @Api(tags = "日志管理接口")

@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * 部门领导 服务层实现
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
 @Service
 public class IDepartmentHeaderServiceImpl extends ServiceImpl<DepartmentHeaderMapper, DepartmentHeader> implements IDepartmentHeaderService {

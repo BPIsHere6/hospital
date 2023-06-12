@@ -26,8 +26,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * 角色
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
 @Api(tags = "角色管理接口")

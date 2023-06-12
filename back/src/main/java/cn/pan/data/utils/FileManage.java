@@ -1,14 +1,17 @@
 package cn.pan.data.utils;
 
 import cn.pan.data.vo.OssSettingVo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@Api(tags = "文件配置接口类")
 public interface FileManage {
 
     @ApiOperation(value = "删除文件")

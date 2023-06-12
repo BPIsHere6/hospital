@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 /**
- * 设置
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
-@Api(tags = "设置接口")
+@Api(tags = "全局设置接口")
 @RequestMapping("/pan/setting")
 public class SettingController {
 

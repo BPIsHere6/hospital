@@ -1,12 +1,15 @@
 package cn.pan.data.vo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@Api(tags = "缓存VO类")
 @Data
 @AllArgsConstructor
 public class RedisVo {

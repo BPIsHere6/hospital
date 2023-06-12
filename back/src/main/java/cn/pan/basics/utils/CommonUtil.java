@@ -8,9 +8,10 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * 公用工具类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "公共工具类")
 public class CommonUtil {
 
     private static SecureRandom random = new SecureRandom();

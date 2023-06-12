@@ -25,17 +25,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.validation.Valid;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 用户
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
 @Api(tags = "用户接口")
@@ -102,7 +102,7 @@ public class UserController {
         QueryWrapper<User> userQw = new QueryWrapper<>();
         userQw.and(wrapper -> wrapper.eq("username", u.getUsername()).or().eq("mobile",u.getMobile()));
         if(iUserService.count(userQw) > 0L) {
-            return ResultUtil.error("登陆账号/手机号重复");
+            return ResultUtil.error("登录账号/手机号重复");
         }
         String encryptPass = new BCryptPasswordEncoder().encode(u.getPassword());
         u.setPassword(encryptPass).setType(0);
@@ -246,7 +246,7 @@ public class UserController {
     @CacheEvict(key = "#u.username")
     public Result<Object> edit(User u,@RequestParam(required = false) String[] roleIds){
         User customaryUser = iUserService.getById(u.getId());
-        // 登陆账号和密码不能发生变更
+        // 登录账号和密码不能发生变更
         u.setUsername(customaryUser.getUsername());
         u.setPassword(customaryUser.getPassword());
         if(!Objects.equals(customaryUser.getMobile(),u.getMobile())) {
@@ -293,7 +293,7 @@ public class UserController {
         QueryWrapper<User> userQw = new QueryWrapper<>();
         userQw.and(wrapper -> wrapper.eq("username", u.getUsername()).or().eq("mobile",u.getMobile()));
         if(iUserService.count(userQw) > 0L) {
-            return ResultUtil.error("登陆账号/手机号重复");
+            return ResultUtil.error("登录账号/手机号重复");
         }
         if(!PanNullUtils.isNull(u.getDepartmentId())){
             Department department = iDepartmentService.getById(u.getDepartmentId());

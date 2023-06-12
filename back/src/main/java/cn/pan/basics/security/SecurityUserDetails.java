@@ -16,8 +16,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "查询用户的角色和菜单权限")
 public class SecurityUserDetails extends User implements UserDetails {
 
     private static final long serialVersionUID = 1L;

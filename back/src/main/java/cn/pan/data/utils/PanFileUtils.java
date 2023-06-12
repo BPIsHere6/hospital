@@ -6,17 +6,19 @@ import cn.pan.data.service.ISettingService;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.pan.data.vo.OssSettingVo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 
 /**
- * 本地文件工具类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@Api(tags = "本地文件工具类")
 @Component
 public class PanFileUtils implements FileManage {
 

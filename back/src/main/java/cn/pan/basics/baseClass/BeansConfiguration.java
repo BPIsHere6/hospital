@@ -7,16 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
 /**
- * SpringBoot启动配置类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @Configuration
 @Slf4j
+@ApiOperation(value = "SpringBoot启动配置类")
 @Import(cn.hutool.extra.spring.SpringUtil.class)
 public class BeansConfiguration {
 
@@ -34,5 +37,11 @@ public class BeansConfiguration {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         log.info("初始化线程池成功");
         return executor;
+    }
+
+    @Bean
+    @ApiOperation(value = "初始化Redis锁")
+    public RedisLockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisLockRegistry(redisConnectionFactory, "pan-lock");
     }
 }

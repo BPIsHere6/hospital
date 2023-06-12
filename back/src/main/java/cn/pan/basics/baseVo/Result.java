@@ -1,6 +1,7 @@
 package cn.pan.basics.baseVo;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * HTTP回显VO类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "返回数据VO类")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,11 +1,14 @@
 package cn.pan.data.utils;
 
+import io.swagger.annotations.Api;
+
 import java.util.Objects;
 
 /**
- * 判断为空工具类
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@Api(tags = "判断为空工具类")
 public class PanNullUtils {
     public static boolean isNull(String str){
         if(str == null || Objects.equals("",str) || Objects.equals("null",str) || Objects.equals("undefined",str)) {

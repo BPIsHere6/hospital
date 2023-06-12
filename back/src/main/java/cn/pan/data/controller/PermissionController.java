@@ -7,23 +7,21 @@ import cn.pan.basics.redis.RedisTemplateHelper;
 import cn.pan.basics.utils.ResultUtil;
 import cn.pan.basics.utils.SecurityUtil;
 import cn.pan.basics.baseVo.Result;
-import cn.pan.basics.security.permission.MySecurityMetadataSource;
 import cn.pan.data.entity.*;
 import cn.pan.data.service.*;
 import cn.pan.data.utils.PanNullUtils;
 import cn.pan.data.utils.VoUtil;
 import cn.pan.data.vo.MenuVo;
+import cn.pan.data.vo.UserByPermissionVo;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,10 +32,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
-@Api(tags = "菜单/权限管理接口")
+@Api(tags = "菜单管理接口")
 @RequestMapping("/pan/permission")
 @CacheConfig(cacheNames = "permission")
 @Transactional
@@ -47,9 +46,6 @@ public class PermissionController {
     private SecurityUtil securityUtil;
 
     @Autowired
-    private MySecurityMetadataSource mySecurityMetadataSource;
-
-    @Autowired
     private IRolePermissionService iRolePermissionService;
 
     @Autowired
@@ -57,9 +53,6 @@ public class PermissionController {
 
     @Autowired
     private IUserRoleService iUserRoleService;
-
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private RedisTemplateHelper redisTemplateHelper;
@@ -116,45 +109,12 @@ public class PermissionController {
         return new ResultUtil<List<UserByPermissionVo>>().setData(ansList);
     }
 
-    @Data
-    private static class UserByPermissionVo{
-        private String userId;
-        private String userName;
-        private String roleStr;
-        private String code;
-        private String mobile;
-    }
-
     @ApiOperation(value = "根据层级查询菜单")
     private List<Permission> getPermissionListByLevel(int level) {
         QueryWrapper<Permission> qw = new QueryWrapper<>();
         qw.eq("level",level);
         qw.orderByAsc("sort_order");
         return iPermissionService.list(qw);
-    }
-    private List<Permission> getPermissionByUserId(String userId) {
-        QueryWrapper<UserRole> urQw = new QueryWrapper<>();
-        urQw.eq("user_id",userId);
-        List<UserRole> userRoleList = iUserRoleService.list(urQw);
-        List<Permission> permissionList = new ArrayList<>();
-        for (UserRole userRole : userRoleList) {
-            QueryWrapper<RolePermission> rpQw = new QueryWrapper<>();
-            rpQw.eq("role_id",userRole.getRoleId());
-            List<RolePermission> rolePermissionList = iRolePermissionService.list(rpQw);
-            for (RolePermission rolePermission : rolePermissionList) {
-                boolean flag = true;
-                for (Permission permission : permissionList) {
-                    if(Objects.equals(permission.getId(),rolePermission.getPermissionId())) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if(flag) {
-                    permissionList.add(iPermissionService.getById(rolePermission.getPermissionId()));
-                }
-            }
-        }
-        return permissionList;
     }
 
     @SystemLog(about = "查询菜单", type = LogType.DATA_CENTER,doType = "PERMISSION-02")
@@ -164,10 +124,9 @@ public class PermissionController {
         List<MenuVo> menuList = new ArrayList<>();
         User currUser = securityUtil.getCurrUser();
         String keyInRedis = "permission::userMenuList:" + currUser.getId();
-        String valueInRedis = redisTemplate.opsForValue().get(keyInRedis);
+        String valueInRedis = redisTemplateHelper.get(keyInRedis);
         if(!PanNullUtils.isNull(valueInRedis)){
-            menuList = new Gson().fromJson(valueInRedis, new TypeToken<List<MenuVo>>(){}.getType());
-            return new ResultUtil<List<MenuVo>>().setData(menuList);
+            return new ResultUtil<List<MenuVo>>().setData(JSON.parseArray(valueInRedis,MenuVo.class));
         }
         // 拥有的菜单列表
         List<Permission> list = getPermissionByUserId(currUser.getId());
@@ -228,7 +187,8 @@ public class PermissionController {
             }
             vo.setChildren(firstMenu);
         }
-        redisTemplate.opsForValue().set(keyInRedis, new Gson().toJson(menuList), 10L, TimeUnit.DAYS);
+
+        redisTemplateHelper.set(keyInRedis, JSONObject.toJSONString(menuList), 10L, TimeUnit.DAYS);
         return new ResultUtil<List<MenuVo>>().setData(menuList);
     }
 
@@ -295,8 +255,7 @@ public class PermissionController {
         for(String id:ids){
             iPermissionService.removeById(id);
         }
-        mySecurityMetadataSource.loadResourceDefine();
-        redisTemplate.delete("permission::allList");
+        redisTemplateHelper.delete("permission::allList");
         return ResultUtil.success();
     }
 
@@ -313,9 +272,17 @@ public class PermissionController {
                 return new ResultUtil<Permission>().setErrorMsg("名称已存在");
             }
         }
+        if(Objects.equals(CommonConstant.PERMISSION_NAV,permission.getType())) {
+            // 顶级菜单添加标识
+            permission.setParentId("0");
+            if(PanNullUtils.isNull(permission.getPath())) {
+                permission.setPath(permission.getName());
+            }
+            permission.setDescription("");
+            permission.setComponent("");
+        }
         iPermissionService.saveOrUpdate(permission);
-        mySecurityMetadataSource.loadResourceDefine();
-        redisTemplate.delete("permission::allList");
+        redisTemplateHelper.delete("permission::allList");
         return new ResultUtil<Permission>().setData(permission);
     }
 
@@ -335,12 +302,36 @@ public class PermissionController {
             }
         }
         iPermissionService.saveOrUpdate(permission);
-        mySecurityMetadataSource.loadResourceDefine();
         Set<String> keysUser = redisTemplateHelper.keys("user:" + "*");
-        redisTemplate.delete(keysUser);
+        redisTemplateHelper.delete(keysUser);
         Set<String> keysUserMenu = redisTemplateHelper.keys("permission::userMenuList:*");
-        redisTemplate.delete(keysUserMenu);
-        redisTemplate.delete("permission::allList");
+        redisTemplateHelper.delete(keysUserMenu);
+        redisTemplateHelper.delete("permission::allList");
         return new ResultUtil<Permission>().setData(permission);
+    }
+
+    private List<Permission> getPermissionByUserId(String userId) {
+        QueryWrapper<UserRole> urQw = new QueryWrapper<>();
+        urQw.eq("user_id",userId);
+        List<UserRole> userRoleList = iUserRoleService.list(urQw);
+        List<Permission> permissionList = new ArrayList<>();
+        for (UserRole userRole : userRoleList) {
+            QueryWrapper<RolePermission> rpQw = new QueryWrapper<>();
+            rpQw.eq("role_id",userRole.getRoleId());
+            List<RolePermission> rolePermissionList = iRolePermissionService.list(rpQw);
+            for (RolePermission rolePermission : rolePermissionList) {
+                boolean flag = true;
+                for (Permission permission : permissionList) {
+                    if(Objects.equals(permission.getId(),rolePermission.getPermissionId())) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag) {
+                    permissionList.add(iPermissionService.getById(rolePermission.getPermissionId()));
+                }
+            }
+        }
+        return permissionList;
     }
 }

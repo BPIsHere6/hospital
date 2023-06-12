@@ -13,60 +13,61 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 基类控制器
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "模板控制器层")
 public abstract class PanBaseController<E, ID extends Serializable> {
 
     @Autowired
-    public abstract PanBaseService<E,ID> getpanService();
+    public abstract PanBaseService<E,ID> getZwzService();
 
     @RequestMapping(value = "/getOne", name = "查询单个数据", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询单个数据")
     public Result<E> getOne(@RequestParam ID id){
-        return new ResultUtil<E>().setData(getpanService().get(id));
+        return new ResultUtil<E>().setData(getZwzService().get(id));
     }
 
     @RequestMapping(value = "/getAll", name = "查询全部数据",  method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询全部数据")
     public Result<List<E>> getAll(){
-        return new ResultUtil<List<E>>().setData(getpanService().getAll());
+        return new ResultUtil<List<E>>().setData(getZwzService().getAll());
     }
 
     @RequestMapping(value = "/getByPage", name = "查询数据",  method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询数据")
     public Result<Page<E>> getByPage(PageVo page){
-        return new ResultUtil<Page<E>>().setData(getpanService().findAll(PageUtil.initPage(page)));
+        return new ResultUtil<Page<E>>().setData(getZwzService().findAll(PageUtil.initPage(page)));
     }
 
     @RequestMapping(value = "/save", name = "新增数据",  method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "新增数据")
     public Result<E> save(E entity){
-        return new ResultUtil<E>().setData(getpanService().save(entity));
+        return new ResultUtil<E>().setData(getZwzService().save(entity));
     }
 
     @RequestMapping(value = "/update", name = "编辑数据",  method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation(value = "编辑数据")
     public Result<E> update(E entity){
-        return new ResultUtil<E>().setData(getpanService().update(entity));
+        return new ResultUtil<E>().setData(getZwzService().update(entity));
     }
 
     @RequestMapping(value = "/count", name = "查询数据条数",  method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询数据条数")
     public Result<Long> count(){
-        return new ResultUtil<Long>().setData(getpanService().count());
+        return new ResultUtil<Long>().setData(getZwzService().count());
     }
     @RequestMapping(value = "/delOne", name = "删除数据",  method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "删除数据")
     public Result<Object> delByIds(@RequestParam ID id){
-        getpanService().delete(id);
+        getZwzService().delete(id);
         return new ResultUtil<Object>().setSuccessMsg("OK");
     }
 
@@ -75,7 +76,7 @@ public abstract class PanBaseController<E, ID extends Serializable> {
     @ApiOperation(value = "删除数据")
     public Result<Object> delByIds(@RequestParam ID[] ids){
         for(ID id:ids){
-            getpanService().delete(id);
+            getZwzService().delete(id);
         }
         return new ResultUtil<Object>().setSuccessMsg("OK");
     }

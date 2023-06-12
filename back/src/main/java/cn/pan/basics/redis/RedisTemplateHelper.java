@@ -17,8 +17,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
- * Redis工具类
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "Redis工具类")
 @Component
 public class RedisTemplateHelper {
 
@@ -364,13 +366,14 @@ public class RedisTemplateHelper {
     }
 
     @ApiOperation(value = "移除列表的最后一个元素，并将该元素添加到另一个列表并返回")
-    public String lRightPopandLeftPush(String sourceKey, String destinationKey) {
-        return redisTemplate.opsForList().rightPopAndLeftPush(sourceKey,destinationKey);
+    public String lRightPopAndLeftPush(String sourceKey, String destinationKey) {
+        return redisTemplate.opsForList().rightPopAndLeftPush(sourceKey,
+                destinationKey);
     }
 
     @ApiOperation(value = "从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止")
-    public String lBRightPopandLeftPush(String sourceKey, String destinationKey,long timeout, TimeUnit unit) {
-        return redisTemplate.opsForList().rightPopAndLeftPush(sourceKey,destinationKey,timeout,unit);
+    public String lBRightPopAndLeftPush(String sourceKey, String destinationKey,long timeout, TimeUnit unit) {
+        return redisTemplate.opsForList().rightPopAndLeftPush(sourceKey,destinationKey, timeout, unit);
     }
 
     @ApiOperation(value = "删除集合中值等于value的元素",notes = "index=0, 删除所有值等于value的元素; index>0, 从头部开始删除第一个值等于value的元素;index<0, 从尾部开始删除第一个值等于value的元素")

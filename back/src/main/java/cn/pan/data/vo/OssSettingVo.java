@@ -1,10 +1,16 @@
 package cn.pan.data.vo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author 不潘
+ *  
+ */
+@Api(tags = "文件存储配置VO类")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

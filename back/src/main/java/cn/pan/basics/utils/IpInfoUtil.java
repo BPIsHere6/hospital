@@ -2,22 +2,22 @@ package cn.pan.basics.utils;
 
 import cn.hutool.http.HttpUtil;
 import cn.pan.data.utils.PanNullUtils;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.alibaba.fastjson2.JSONObject;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
- * IP地址工具类
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "IP定位工具类")
 @Slf4j
 @Component
 public class IpInfoUtil {
@@ -44,13 +44,13 @@ public class IpInfoUtil {
         String url = TXDT_URL_PRE + key + "&ip=" + getRequestIpAddress(request);
         String resultStr = "本地测试";
         try {
-            JsonObject objectResult = JsonParser.parseString(HttpUtil.get(url, 3000)).getAsJsonObject();
-            if(Objects.equals(objectResult.get("status").getAsString(),"0")) {
-                JsonObject adInfo = objectResult.get("result").getAsJsonObject().get("ad_info").getAsJsonObject();
-                String nationStr = adInfo.get("nation").getAsString();
-                String provinceStr = adInfo.get("province").getAsString();
-                String cityStr = adInfo.get("city").getAsString();
-                String districtStr = adInfo.get("district").getAsString();
+            JSONObject objectResult = JSONObject.parseObject(HttpUtil.get(url, 3000));
+            if(Objects.equals(objectResult.get("status"),"0")) {
+                JSONObject adInfo = objectResult.getJSONObject("result").getJSONObject("ad_info");
+                String nationStr = adInfo.getString("nation");
+                String provinceStr = adInfo.getString("province");
+                String cityStr = adInfo.getString("city");
+                String districtStr = adInfo.getString("district");
                 if(!PanNullUtils.isNull(nationStr) && PanNullUtils.isNull(provinceStr)){
                     resultStr = nationStr;
                 } else {

@@ -1,11 +1,13 @@
 package cn.pan.basics.parameter;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 
 /**
- * 系统基础常量
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "系统基础常量")
 public interface CommonConstant {
 
     @ApiModelProperty(value = "正常")
@@ -42,5 +44,5 @@ public interface CommonConstant {
     String[] STOP_WORDS = {"anonymoususer"};
 
     @ApiModelProperty(value = "头像URL")
-    String USER_DEFAULT_AVATAR = "https://img.wxcha.com/m00/12/db/594dd9fb43029a58df9acc0e4591d94b.jpg";
+    String USER_DEFAULT_AVATAR = "https://wx.qlogo.cn/mmhead/PiajxSqBRaEKjc639z2lRF4DqweNw2aDRLbAL7yLlSgrdZeKBCwLHDQ/0";
 }

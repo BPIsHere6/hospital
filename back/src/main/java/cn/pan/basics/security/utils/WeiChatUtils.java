@@ -7,27 +7,33 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import javax.net.ssl.*;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author 不潘
+ *  
+ */
+@ApiOperation(value = "HTTP工具类")
 public class WeiChatUtils implements X509TrustManager {
 
-    @ApiModelProperty(value = "朗世企业ID")
-    public static final String YH_CORPID = "wwf94bb44e76e308f8";
+    @ApiModelProperty(value = "企业ID")
+    public static final String CORPID = "";
 
     @ApiModelProperty(value = "企业微信密匙")
-    public static final String YHYY_CORPSECRET = "gK0Ko_byZgG7R84QEyLvs3KgAIocSoYeuZh1wg-AJD4";
+    public static final String CORPSECRET = "";
 
     /**
-     * 企业微信 艺涵 应用Token
+     * 企业微信 应用Token
      * @return
      */
     public static String getToken(){
-        String s= httpsRequest("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=" + YH_CORPID + "&corpsecret=" + YHYY_CORPSECRET,"GET",null);
+        String s= httpsRequest("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=" + CORPID + "&corpsecret=" + CORPSECRET,"GET",null);
         JSONObject err = JSON.parseObject(s);
         if(err.getString("errmsg").equals("ok")){
             return err.getString("access_token");
@@ -158,7 +164,7 @@ public class WeiChatUtils implements X509TrustManager {
         //    邮箱
         private  String email;
         //    个数必须和参数department的个数一致，
-//    表示在所在的部门内是否为上级。1表示为上级，0表示非上级。
+        //    表示在所在的部门内是否为上级。1表示为上级，0表示非上级。
         private  String is_leader_in_dept;
         //    主部门
         private  String main_department;
@@ -166,8 +172,6 @@ public class WeiChatUtils implements X509TrustManager {
         private List<String> useridlist;
         //    座机
         private String telephone;
-
-        // "external_profile":{"external_attr":[{"type":0,"name":"短号","text":{"value":"649507"}}]
         private ExternalProfile external_profile;
     }
 

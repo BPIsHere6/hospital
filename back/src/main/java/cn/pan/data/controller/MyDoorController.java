@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
 @Api(tags = "个人门户接口")
@@ -53,7 +54,7 @@ public class MyDoorController {
         if(PanNullUtils.isNull(myDoor)) {
             return new ResultUtil().setData(ans);
         }
-        String[] pan666s = myDoor.split("pan666");
+        String[] pan666s = myDoor.split("PAN666");
         List<Permission> all = iPermissionService.list();
         for (String pan666 : pan666s) {
             for (Permission permission : all) {
@@ -82,7 +83,7 @@ public class MyDoorController {
             ans.add(getNullMenu());ans.add(getNullMenu());ans.add(getNullMenu());
             return new ResultUtil().setData(ans);
         }
-        String[] pan666s = myDoor.split("pan666");
+        String[] pan666s = myDoor.split("PAN666");
         List<Permission> all = iPermissionService.list();
         for (String pan666 : pan666s) {
             for (Permission permission : all) {

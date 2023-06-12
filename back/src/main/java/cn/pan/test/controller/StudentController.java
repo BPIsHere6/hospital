@@ -9,7 +9,6 @@ import cn.pan.basics.baseVo.Result;
 import cn.pan.data.utils.PanNullUtils;
 import cn.pan.test.entity.Student;
 import cn.pan.test.service.IStudentService;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -22,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @Slf4j
 @RestController

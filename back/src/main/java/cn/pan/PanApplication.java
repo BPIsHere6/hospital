@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * SpringBoot启动类
- * @author 潘越鑫
+ * @author 不潘
  */
 @SpringBootApplication
 @EnableJpaAuditing
@@ -20,6 +20,5 @@ public class PanApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PanApplication.class, args);
-        System.out.println("ok");
     }
 }

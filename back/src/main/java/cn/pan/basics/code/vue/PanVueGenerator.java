@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author 不潘
+ *
+ */
+@ApiOperation(value = "前端代码生成器")
 @RestController
 @Api(tags = "Vue代码生成")
 @RequestMapping(value = "/pan/generate")

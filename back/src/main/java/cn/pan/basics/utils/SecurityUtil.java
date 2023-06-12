@@ -3,6 +3,7 @@ package cn.pan.basics.utils;
 import cn.pan.basics.exception.PanException;
 import cn.pan.basics.baseVo.TokenUser;
 import cn.pan.basics.parameter.PanLoginProperties;
+import cn.pan.basics.redis.RedisTemplateHelper;
 import cn.pan.data.entity.*;
 import cn.pan.data.service.IPermissionService;
 import cn.pan.data.service.IRoleService;
@@ -11,11 +12,10 @@ import cn.pan.data.utils.PanNullUtils;
 import cn.pan.data.vo.PermissionDTO;
 import cn.pan.data.vo.RoleDTO;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.google.gson.Gson;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,9 +26,10 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 鉴权工具类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "鉴权工具类")
 @Component
 public class SecurityUtil {
 
@@ -36,7 +37,7 @@ public class SecurityUtil {
     private PanLoginProperties tokenProperties;
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplateHelper redisTemplate;
 
     @Autowired
     private IUserService iUserService;
@@ -111,18 +112,18 @@ public class SecurityUtil {
         TokenUser tokenUser = new TokenUser(selectUser.getUsername(), permissionTitleList, saved);
         // 单点登录删除旧Token
         if(tokenProperties.getSsoFlag()) {
-            String oldToken = redisTemplate.opsForValue().get(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername());
+            String oldToken = redisTemplate.get(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername());
             if (StrUtil.isNotBlank(oldToken)) {
                 redisTemplate.delete(PanLoginProperties.HTTP_TOKEN_PRE + oldToken);
             }
         }
         // 保存至Redis备查
         if(saved){
-            redisTemplate.opsForValue().set(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername(), ansUserToken, tokenProperties.getUserSaveLoginTokenDays(), TimeUnit.DAYS);
-            redisTemplate.opsForValue().set(PanLoginProperties.HTTP_TOKEN_PRE + ansUserToken, new Gson().toJson(tokenUser), tokenProperties.getUserSaveLoginTokenDays(), TimeUnit.DAYS);
+            redisTemplate.set(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername(), ansUserToken, tokenProperties.getUserSaveLoginTokenDays(), TimeUnit.DAYS);
+            redisTemplate.set(PanLoginProperties.HTTP_TOKEN_PRE + ansUserToken, JSON.toJSONString(tokenUser), tokenProperties.getUserSaveLoginTokenDays(), TimeUnit.DAYS);
         }else{
-            redisTemplate.opsForValue().set(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername(), ansUserToken, tokenProperties.getUserTokenInvalidDays(), TimeUnit.MINUTES);
-            redisTemplate.opsForValue().set(PanLoginProperties.HTTP_TOKEN_PRE + ansUserToken, new Gson().toJson(tokenUser), tokenProperties.getUserTokenInvalidDays(), TimeUnit.MINUTES);
+            redisTemplate.set(PanLoginProperties.USER_TOKEN_PRE + selectUser.getUsername(), ansUserToken, tokenProperties.getUserTokenInvalidDays(), TimeUnit.MINUTES);
+            redisTemplate.set(PanLoginProperties.HTTP_TOKEN_PRE + ansUserToken, JSON.toJSONString(tokenUser), tokenProperties.getUserTokenInvalidDays(), TimeUnit.MINUTES);
         }
         return ansUserToken;
     }
@@ -148,7 +149,7 @@ public class SecurityUtil {
     public User getCurrUser(){
         Object selectUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(Objects.equals("anonymousUser",selectUser.toString())){
-            throw new PanException("登陆失效");
+            throw new PanException("登录失效");
         }
         UserDetails user = (UserDetails) selectUser;
         return selectByUserName(user.getUsername());

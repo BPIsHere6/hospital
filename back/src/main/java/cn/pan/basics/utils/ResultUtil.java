@@ -2,10 +2,13 @@ package cn.pan.basics.utils;
 
 import cn.pan.basics.baseVo.Result;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "API接口回调工具类")
 public class ResultUtil<T> {
 
     private Result<T> result;

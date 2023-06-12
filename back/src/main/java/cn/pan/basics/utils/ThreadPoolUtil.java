@@ -6,9 +6,10 @@ import io.swagger.annotations.ApiOperation;
 import java.util.concurrent.*;
 
 /**
- * 线程池配置
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "线程池配置实体类")
 public class ThreadPoolUtil {
 
     @ApiModelProperty(value = "线程的缓冲队列")

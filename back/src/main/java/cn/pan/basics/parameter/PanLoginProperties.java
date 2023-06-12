@@ -1,12 +1,15 @@
 package cn.pan.basics.parameter;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "登录常量类")
 @Data
 @Configuration
 public class PanLoginProperties {
@@ -22,13 +25,13 @@ public class PanLoginProperties {
     @ApiModelProperty(value = "用户Token过期天数", notes = "保存Token的时间,Token没了也不能自动登录")
     private Integer userTokenInvalidDays = 30;
 
-    @ApiModelProperty(value = "用户保存登陆天数", notes = "选择了自动登录,记录保存的时间")
+    @ApiModelProperty(value = "用户保存登录天数", notes = "选择了自动登录,记录保存的时间")
     private Integer userSaveLoginTokenDays = 7;
 
-    @ApiModelProperty(value = "最大登陆失败次数")
+    @ApiModelProperty(value = "最大登录失败次数")
     private Integer maxLoginFailTimes = 10;
 
-    @ApiModelProperty(value = "登陆失败超限后锁定分钟")
+    @ApiModelProperty(value = "登录失败超限后锁定分钟")
     private Integer loginFailMaxThenLockTimes = 10;
 
     @ApiModelProperty(value = "全局限流")
@@ -53,7 +56,7 @@ public class PanLoginProperties {
 
     public static final String SAVE_LOGIN_PRE = "saveLogin";
 
-    public static final String HTTP_TOKEN_PRE = "pan_TOKEN_PRE:";
+    public static final String HTTP_TOKEN_PRE = "PAN_TOKEN_PRE:";
 
-    public static final String USER_TOKEN_PRE = "pan_USER_TOKEN:";
+    public static final String USER_TOKEN_PRE = "PAN_USER_TOKEN:";
 }

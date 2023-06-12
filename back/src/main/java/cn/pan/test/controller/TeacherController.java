@@ -10,7 +10,6 @@ import cn.pan.data.utils.PanNullUtils;
 import cn.pan.data.vo.AntvVo;
 import cn.pan.test.entity.Teacher;
 import cn.pan.test.service.ITeacherService;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -20,13 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
 @Slf4j
 @RestController

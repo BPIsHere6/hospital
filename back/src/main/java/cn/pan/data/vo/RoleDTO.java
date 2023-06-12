@@ -1,5 +1,6 @@
 package cn.pan.data.vo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@Api(tags = "角色VO类")
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor

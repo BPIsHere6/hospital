@@ -21,10 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
 @RestController
-@Api(tags = "文件上传")
+@Api(tags = "文件上传接口")
 @RequestMapping("/pan/upload")
 @Transactional
 public class UploadController {

@@ -19,11 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @Slf4j
 @RestController
-@Api(tags = "mybatis用户接口")
+@Api(tags = "新用户接口")
 @RequestMapping("/pan/myUser")
 @Transactional
 public class MyUserController {

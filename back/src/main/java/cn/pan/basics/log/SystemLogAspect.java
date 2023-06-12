@@ -8,7 +8,7 @@ import cn.pan.basics.utils.IpInfoUtil;
 import cn.pan.basics.utils.ThreadPoolUtil;
 import cn.pan.data.entity.Log;
 import cn.pan.data.service.LogService;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -19,7 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,9 +27,10 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Spring AOP实现日志管理
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "日志实现类")
 @Aspect
 @Component
 @Slf4j

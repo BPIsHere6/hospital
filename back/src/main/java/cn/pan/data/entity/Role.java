@@ -9,13 +9,14 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.util.List;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
 @Data
 @Entity

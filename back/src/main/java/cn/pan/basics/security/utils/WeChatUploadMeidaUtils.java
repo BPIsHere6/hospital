@@ -1,11 +1,17 @@
 package cn.pan.basics.security.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import io.swagger.annotations.ApiOperation;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
 
+/**
+ * @author 不潘
+ *
+ */
+@ApiOperation(value = "日志枚举类")
 public class WeChatUploadMeidaUtils {
     /**
      * 新增临时素材
@@ -15,7 +21,7 @@ public class WeChatUploadMeidaUtils {
      * @return
      * @throws Exception
      */
-    public static JSONObject UploadMeida(String fileType, String filePath,String token) throws Exception {
+    public static JSONObject UploadMeida(String fileType, String filePath, String token) throws Exception {
         // 返回结果
         String result = null;
         File file = new File(filePath);

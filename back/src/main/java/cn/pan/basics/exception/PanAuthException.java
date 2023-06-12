@@ -1,12 +1,14 @@
 package cn.pan.basics.exception;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 
 /**
- * InternalAuthenticationServiceException 异常处理类
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "自定义异常")
 public class PanAuthException extends InternalAuthenticationServiceException {
 
     private static final long serialVersionUID = 1L;

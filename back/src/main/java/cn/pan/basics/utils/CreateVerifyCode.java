@@ -13,9 +13,10 @@ import java.io.OutputStream;
 import java.util.Random;
 
 /**
- * 随机字符验证码生成工具类
- * @author 潘越鑫
+ * @author 不潘
+ *
  */
+@ApiOperation(value = "验证码工具类")
 public class CreateVerifyCode {
 
     @ApiModelProperty(value = "验证码")

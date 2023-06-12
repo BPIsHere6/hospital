@@ -1,6 +1,7 @@
 package cn.pan.basics.baseVo;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 分页VO类
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@ApiOperation(value = "分页VO类")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

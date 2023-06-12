@@ -118,7 +118,7 @@ export default {
     },
     data() {
         return {
-            sliceNum: 5,
+            sliceNum: 3,
             shrink: false,
             username: "",
             userId: "",
@@ -175,13 +175,13 @@ export default {
                 this.$store.commit("addOpenSubmenu", pathArr[1].name);
             }
             let userInfo = JSON.parse(Cookies.get("userInfo"));
-            console.log("当前登陆者的信息：", userInfo);
+            console.log("当前登录者的信息：", userInfo);
             this.username = userInfo.nickname;
             this.userId = userInfo.id;
             this.checkTag(this.$route.name);
             let currWidth = document.body.clientWidth;
             if (currWidth <= 1200) {
-                this.sliceNum = 5;
+                this.sliceNum = 2;
             }
         },
         selectNav(name) {
@@ -245,13 +245,13 @@ export default {
         resize() {
             let currWidth = document.body.clientWidth;
             if (currWidth <= 1200 && currWidth > 900) {
-                this.sliceNum = 6;
+                this.sliceNum = 2;
                 this.shrink = true;
             } else if (currWidth <= 900) {
-                this.sliceNum = 5;
+                this.sliceNum = 1;
                 this.shrink = true;
             } else {
-                this.sliceNum = 7;
+                this.sliceNum = 3;
                 this.shrink = false;
             }
         }

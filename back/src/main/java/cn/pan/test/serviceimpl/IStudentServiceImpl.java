@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 学生 服务层接口实现
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @Slf4j
 @Service

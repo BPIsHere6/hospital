@@ -1,13 +1,16 @@
 package cn.pan.data.vo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
 
 /**
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
+@Api(tags = "菜单VO类")
 @Data
 public class MenuVo {
 

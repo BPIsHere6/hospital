@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 数据字典
- * @author 潘越鑫
+ * @author 不潘
+ *  
  */
 @RestController
 @Api(tags = "字典管理接口")
